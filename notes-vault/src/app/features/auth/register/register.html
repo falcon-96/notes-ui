@@ -1,0 +1,37 @@
+<div class="card" style="width: 20rem">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" class="authForm">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        formControlName="username"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="exampleInputPassword1"
+        formControlName="password"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputfname1" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="exampleInputfname1" formControlName="fname" />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputmname1" class="form-label">Middle Name</label>
+      <input type="text" class="form-control" id="exampleInputmname1" formControlName="mname" />
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputlname1" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="exampleInputlname1" formControlName="lname" />
+    </div>
+    <button type="submit" [disabled]="formGroup.invalid">Register</button>
+    <p class="extraFormFooterInfo">Already have an account? <a routerLink="/login">Login</a></p>
+  </form>
+</div>

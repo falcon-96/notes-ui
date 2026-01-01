@@ -1,0 +1,20 @@
+<div class="card bg-dark text-white border-secondary mb-4 custom-editor-card">
+  <div class="card-header border-secondary" style="text-align: center">
+    {{ cardTitle }}
+  </div>
+  <form [formGroup]="formGroup" (ngSubmit)="notifyParent()">
+    <div class="card-body">
+      <input
+        type="text"
+        class="form-control border-secondary mb-3"
+        placeholder="Note Title"
+        formControlName="title"
+      />
+      <!-- Wrapper for quill to avoid layout issues -->
+      <div class="bg-white text-dark rounded">
+        <div [id]="editorId" style="height: 300px"></div>
+      </div>
+      <button class="btn btn-primary mt-3 w-100">Save Note</button>
+    </div>
+  </form>
+</div>
