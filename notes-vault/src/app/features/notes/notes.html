@@ -1,0 +1,71 @@
+<div class="container-fluid p-4" [class.blurred]="isEditing">
+  <div class="row mb-4">
+    <div class="col-10">
+      <h1 class="display-4 text-white">NotesVault</h1>
+      <p class="lead text-white-50">Keep yourself organized.</p>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-outline-light" id="signOutButton" (click)="signOut()">Sign Out</button>
+    </div>
+  </div>
+  <hr class="my-4 border-light" />
+
+  <div class="row">
+    <!-- Editor Column -->
+    <div class="col-md-4">
+      <app-quill-editor [cardTitle]="'New Note'" (save)="saveNote($event)"></app-quill-editor>
+    </div>
+    <!-- Notes List Column -->
+    <div class="col-md-8">
+      <div class="row">
+        @for (item of notes; track $index) {
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100 note-card">
+            <div class="card-body">
+              <div>
+                <h5 class="card-title">{{ item.title }}</h5>
+                <div>
+                  <mat-icon
+                    (click)="enableEdit(item)"
+                    (keydown.enter)="enableEdit(item)"
+                    style="cursor: pointer"
+                    >edit</mat-icon
+                  >
+                </div>
+                <div>
+                  <mat-icon
+                    id="{{ item.id }}-delete-btn"
+                    (keydown.enter)="warnAndDelete(item)"
+                    (click)="warnAndDelete(item)"
+                    >delete</mat-icon
+                  >
+                  <!-- <app-confirmation disabled [note]="selectedNote"></app-confirmation> -->
+                </div>
+              </div>
+              <p class="card-text" [innerHTML]="item.content"></p>
+              <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+@if (isEditing) {
+<div class="edit-overlay" (keypress)="cancelEdit()" (click)="cancelEdit()">
+  <div
+    class="card bg-dark text-white p-4"
+    style="width: 500px; z-index: 100"
+    (keypress)="$event.stopPropagation()"
+    (click)="$event.stopPropagation()"
+  >
+    <app-quill-editor
+      [cardTitle]="'Edit Note'"
+      [existingNote]="selectedNote"
+      (save)="saveEdit($event)"
+    ></app-quill-editor>
+  </div>
+</div>
+}
